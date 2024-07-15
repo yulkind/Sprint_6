@@ -3,8 +3,10 @@ from selenium.webdriver.common.by import By
 
 class MainPageLocators:
 
-    #FAQ
+    # Локатор заголовка раздела "Вопросы о важном"
     FAQ_SECTION = By.XPATH, '//div[contains(text(),"Вопросы о важном")]'
+
+    # Локаторы вопросов раздела "Вопросы о важном"
     FAQ_QUESTION_1 = By.XPATH, '//div[@id="accordion__heading-0"]'
     FAQ_QUESTION_2 = By.XPATH, '//div[@id="accordion__heading-1"]'
     FAQ_QUESTION_3 = By.XPATH, '//div[@id="accordion__heading-2"]'
@@ -14,6 +16,7 @@ class MainPageLocators:
     FAQ_QUESTION_7 = By.XPATH, '//div[@id="accordion__heading-6"]'
     FAQ_QUESTION_8 = By.XPATH, '//div[@id="accordion__heading-7"]'
 
+    # Локаторы ответов раздела "Вопросы о важном"
     FAQ_ANSWER_1 = By.XPATH, '//p[contains(text(),"Сутки — 400 рублей. Оплата курьеру — наличными или картой.")]'
     FAQ_ANSWER_2 = By.XPATH, '//p[contains(text(),"Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим.")]'
     FAQ_ANSWER_3 = By.XPATH, '//p[contains(text(),"Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30.")]'
@@ -23,13 +26,18 @@ class MainPageLocators:
     FAQ_ANSWER_7 = By.XPATH, '//p[contains(text(),"Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои.")]'
     FAQ_ANSWER_8 = By.XPATH, '//p[contains(text(),"Да, обязательно. Всем самокатов! И Москве, и Московской области.")]'
 
-    # Main page
-    SITE_HEADER = By.XPATH, '//div[contains(@class, "Home_Header__iJKdX")]'
-    BOTTOM_ORDER_BUTTON = By.XPATH, '//div[contains(@class, "Home_FinishButton")]/button'
-    HEADER_ORDER_BUTTON = By.XPATH, '//div[@class = "Header_Nav__AGCXC"]/button[text() = "Заказать"]'
+    # Локатор кнопки "Заказать" в верхней части страницы
+    ORDER_BUTTON_HEADER = By.XPATH, '//div[@class = "Header_Nav__AGCXC"]/button[text() = "Заказать"]'
 
-    # Logo
-    HEADER_SCOOTER_LOGO = By.XPATH, '//a[contains(@class, "Header_LogoScooter")]'
-    HEADER_YANDEX_LOGO = By.XPATH, '//a[@href="//yandex.ru"]'
-    TITLE = By.TAG_NAME, 'title'
+    # Локатор кнопки "Заказать" в нижней части страницы
+    ORDER_BUTTON_BOTTOM = By.XPATH, '//div[contains(@class, "Home_FinishButton")]/button'
+
+    # Локатор кнопки "Ок" для куки
+    COOKIE = By.XPATH, './/button[@id="rcc-confirm-button"]'
+
+    # Локатор логотипа самоката
+    SCOOTER_LOGO_HEADER = By.XPATH, '//a[contains(@class, "Header_LogoScooter")]'
+
+    # Локатор логотипа Яндекса
+    YANDEX_LOGO_HEADER = By.XPATH, '//a[@href="//yandex.ru"]'
 

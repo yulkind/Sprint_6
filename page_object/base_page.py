@@ -1,38 +1,59 @@
+import allure
 import pytest
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from locators import main_page_locators
-from locators.main_page_locators import MainPageLocators
-from page_object.main_page import MainPage
 
 
 class BasePage:
     def __init__(self, driver):
         self.driver = driver
+        self.url = 'https://qa-scooter.praktikum-services.ru/'
 
+    @allure.step('Открытие ссылки')
+    def open_page(self):
+        self.driver.get(self.url)
 
-    def get_question_element(self, question_number):
-        return self.driver.find_element(main_page_locators, f'вопрос {question_number}')
+    @allure.step('Поиск элемента по локатору')
+    def find_element(self, locator):
+        return self.driver.find_element(*locator)
 
-    def get_answer_element(self, question_number):
-        return self.driver.find_element(main_page_locators, f'ответ {question_number}')
+    @allure.step('Ожидание элемента по локатору')
+    def wait_for_element(self, locator):
+        return WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located(locator))
 
-    def click_question(self, question_number):
-        self.get_question_element(question_number).click()
+    @allure.step('Прокрутка до нужного элемента')
+    def scroll_to_element(self, locator):
+        element = WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located(locator))
+        self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
 
-    def is_answer_displayed(self, question_number):
-        return self.get_answer_element(question_number).is_displayed()
+    @allure.step('Клик по элементу')
+    def click_on_element(self, locator):
+        return WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable(locator)).click()
 
-    @pytest.mark.parametrize("question_number", [1, 2, 3, 4, 5, 6, 7, 8])
-    def test_faq(self, question_number):
-        main_page = MainPage(self)
-        main_page.click_question(question_number)
-        assert main_page.is_answer_displayed(question_number), f"Нет ответа на вопрос {question_number}"
+    @allure.step('Скролл до нужного элемента и клик по нему')
+    def scroll_and_click_on_element(self, locator):
+        self.scroll_to_element(locator)
+        self.click_on_element(locator)
 
+    @allure.step('Отображение текста по элементу')
+    def get_text(self, locator):
+        return WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located(locator)).text
 
+    @allure.step('Переход на новую вкладку')
+    def switch_to_new_tab(self):
+        return self.driver.switch_to.window(self.driver.window_handles[-1])
 
+    @allure.step('Получение адреса текущей вкладки')
+    def get_current_url(self):
+        return self.driver.current_url
 
+    @allure.step('Получение отформатированных локаторов')
+    def format_locators(self, locator_question, number):
+        method, locator = locator_question
+        locator = locator.format(number)
+        return method, locator
 
-
-
+    @allure.step('Получение данных в форме')
+    def send_data(self, locator, value):
+        return WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable(locator)).send_keys(value)
