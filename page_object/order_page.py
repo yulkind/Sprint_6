@@ -1,10 +1,12 @@
-import allure
+from locators.main_page_locators import MainPageLocators
 from locators.order_page_locators import OrderPageLocators
 from page_object.base_page import BasePage
 
 
 class OrderPage(BasePage):
+
     def create_order(self, button_order, first_name, last_name, address, phone_number, comment):
+        self.scroll_and_click_on_element(MainPageLocators.COOKIE)
         self.scroll_and_click_on_element(button_order)
         self.send_data(OrderPageLocators.FIRST_NAME, first_name)
         self.send_data(OrderPageLocators.LAST_NAME, last_name)

@@ -33,5 +33,5 @@ class OrderPageLocators:
     ORDER_BUTTON = (By.XPATH, './/div[@class="Order_Buttons__1xGrp"]/button[contains(text(), "Заказать")]')
     # Локатор кнопки "Да"
     YES_BUTTON = (By.XPATH, './/button[contains(text(), "Да")]')
-    # Локатор текста с успешном оформлением заказа
+    # Локатор текста с успешным оформлением заказа
     SUCCESS_ORDER_TEXT = (By.XPATH, './/div[contains(text(), "Заказ оформлен")]')
